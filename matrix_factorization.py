@@ -139,7 +139,6 @@ def gradient(df, emb_user, emb_anime):
 
 # In[17]:
 
-
 # emb_user: the trained user embedding
 # emb_anime: the trained anime embedding
 def gradient_descent(df, emb_user, emb_anime, iterations=2000, learning_rate=0.01, df_val=None):
@@ -161,17 +160,9 @@ def gradient_descent(df, emb_user, emb_anime, iterations=2000, learning_rate=0.0
                 print("validation rmse:",  cost(df_val, emb_user, emb_anime))
     return emb_user, emb_anime
 
-
-# In[ ]:
-
-
 emb_user = create_embeddings(num_users, 5)
 emb_anime = create_embeddings(num_anime, 5)
 emb_user, emb_anime = gradient_descent(anime_df, emb_user, emb_anime, iterations=800, learning_rate=1)
-
-
-# In[ ]:
-
 
 def encode_new_data(valid_df, user_ids, anime_ids):
     df_val_chosen = valid_df['anime_id'].isin(anime_ids.keys()) & valid_df['user_id'].isin(user_ids.keys())
@@ -180,25 +171,13 @@ def encode_new_data(valid_df, user_ids, anime_ids):
     valid_df['user_id'] = np.array([user_ids[x] for x in valid_df['user_id']])
     return valid_df
 
-
-# In[ ]:
-
-
 print("before encoding:", valid_df.shape)
 valid_df = encode_new_data(valid_df, user_ids, anime_ids)
 print("after encoding:", valid_df.shape)
 
-
-# In[ ]:
-
-
 train_rmse = cost(train_df, emb_user, emb_anime)
 val_rmse = cost(valid_df, emb_user, emb_anime)
 print(train_rmse, val_rmse)
-
-
-# In[ ]:
-
 
 valid_df.head()
 
