@@ -108,7 +108,7 @@ model.summary()
 utils.plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=True)
 
 training = model.fit(x=[train_df["user_id"], train_df["anime_id"]], y=train_df["rating"],
-                     epochs=100, batch_size=128, shuffle=True, verbose=0, validation_split=0.3)
+                     epochs=100, batch_size=100, shuffle=True, verbose=0, validation_split=0.3)
 model = training.model
 utils_plot_keras_training(training)
 
